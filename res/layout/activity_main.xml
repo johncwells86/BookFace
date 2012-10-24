@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <EditText
+        android:id="@+id/cade_login_textbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="@string/cade_login"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/magic_number_textbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/cade_login_textbox"
+        android:layout_alignRight="@+id/cade_login_textbox"
+        android:layout_below="@+id/cade_login_textbox"
+        android:ems="10"
+        android:hint="@string/magic_number"
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/magic_number_textbox"
+        android:layout_alignRight="@+id/cade_login_textbox"
+        android:layout_below="@+id/magic_number_textbox"
+        android:text="@string/login" />
+
+    <CheckBox
+        android:id="@+id/remember_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/login_button"
+        android:layout_below="@+id/login_button"
+        android:layout_marginTop="22dp"
+        android:text="@string/remember_uname" />
+
+    <CheckBox
+        android:id="@+id/remember_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/remember_username"
+        android:layout_below="@+id/remember_username"
+        android:text="@string/remember_pass" />
+
+</RelativeLayout>

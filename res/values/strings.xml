@@ -1,0 +1,30 @@
+<resources>
+
+    <string name="app_name">BookFace</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="cade_login">Cade Login</string>
+    <string name="magic_number">Magic Number</string>
+    <string name="login">Login</string>
+    <string name="remember_uname">Remember Username</string>
+    <string name="remember_pass">Remember Password</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_feed">Feed</string>
+    
+    <string name="url_students_login">http://android.eng.utah.edu/Students/Login</string>
+    <string name="url_students_list">http://android.eng.utah.edu/Students/List</string>
+    <string name="url_students_get">http://android.eng.utah.edu/Students/Get</string>
+    <string name="url_students_edit">http://android.eng.utah.edu/Students/Edit</string>
+    
+    <string name="url_posts_list">http://android.eng.utah.edu/Posts/List</string>
+    <string name="url_posts_get">http://android.eng.utah.edu/Posts/Get</string>
+    <string name="url_posts_edit">http://android.eng.utah.edu/Posts/Edit</string>
+    <string name="url_posts_create">http://android.eng.utah.edu/Posts/Create</string>
+    <string name="url_posts_delete">http://android.eng.utah.edu/Posts/Delete</string>
+    
+    <string name="url_comments_list">http://android.eng.utah.edu/Comments/List</string>
+    <string name="url_comments_edit">http://android.eng.utah.edu/Comments/Edit</string>
+    <string name="url_comments_create">http://android.eng.utah.edu/Comments/Create</string>
+    <string name="url_comments_delete">http://android.eng.utah.edu/Comments/Delete</string>
+
+</resources>
