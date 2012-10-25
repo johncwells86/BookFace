@@ -47,8 +47,8 @@ public class GSONTaskHandler {
 
 	}
 
-	public Students getStudentsList() {
-		Students student;
+	public Students[] getStudentsList() {
+		Students[] students;
 
 		String address = studentAddress + "List";
 
@@ -61,13 +61,12 @@ public class GSONTaskHandler {
 			String json = gson.toJson(s);
 			JsonParser jp = new JsonParser();
 			JsonArray arr = jp.parse(json).getAsJsonArray();
-			student = gson.fromJson(arr, Students.class);
+			students = gson.fromJson(arr, Students[].class);
 			
-			return student;
+			return students;
 			
 		} catch (Exception e) {
-			student = new Students(false, e.getMessage());
-			return student;
+			return null;
 		}
 	}
 

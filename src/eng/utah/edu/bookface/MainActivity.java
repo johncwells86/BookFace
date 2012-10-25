@@ -1,5 +1,14 @@
 package eng.utah.edu.bookface;
 
+import java.util.concurrent.ExecutionException;
+
+import org.json.JSONException;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -11,7 +20,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
-
 public class MainActivity extends Activity {
 
 	public GSONTaskHandler gsonHandler = new GSONTaskHandler();
@@ -20,6 +28,9 @@ public class MainActivity extends Activity {
 	public EditText magicNumberTextbox;
 	public CheckBox rememberUserName;
 	public CheckBox rememberPass;
+
+	private Gson gson = new Gson();
+	private JsonParser jp = new JsonParser();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,18 +47,9 @@ public class MainActivity extends Activity {
 
 			public void onClick(View v) {
 
-				Boolean username = false;
-				Boolean pass = false;
-				Students s = new Students(true, "Hi");
-				if (cadeLoginTextbox.getText() != null) {
-					username = true;
-				}
-				if (magicNumberTextbox.getText() != null) {
-					pass = true;
-				}
-
-				if (username && pass) {
-
+				if ((cadeLoginTextbox.getText() != null)
+						&& (magicNumberTextbox.getText() != null)) {
+					Login();
 				}
 			}
 		});
@@ -63,17 +65,42 @@ public class MainActivity extends Activity {
 		Resources res = getResources();
 		try {
 			Students login;
-			String cade = cadeLoginTextbox.getText().toString();
+			String cade = cadeLoginTextbox.getText().toString().trim();
 			int magic = Integer.parseInt(magicNumberTextbox.getText()
-					.toString());
-			String url = String.format("%s?%s%d",res.getString(R.string.url_students_login), cade, magic);
-			InternetTaskHandler it = (InternetTaskHandler) new InternetTaskHandler().execute(url);
-			
-		} catch (Exception e) {
+					.toString().trim());
+			String url = String.format(res
+					.getString(R.string.url_students_login));
+			String query = String.format("CadeLogin=%s&MagicNumber=%d", cade,
+					magic);
+			InternetTaskHandler it = (InternetTaskHandler) new InternetTaskHandler()
+					.execute(url, "POST", query);
+
+			String result = it.get();
+			if (result != null) {
+
+				login = gson.fromJson(jp.parse(result), Students.class);
+
+				if (login.Success) {
+					Intent i = new Intent(this, Feed.class);
+					startActivity(i);
+				} else if (login.Message != null) {
+					Toast.makeText(this, login.Message, Toast.LENGTH_LONG)
+							.show();
+				}
+			}
+
+		} catch (JsonParseException e) {
 			Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
 			return false;
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		} catch (ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
 		}
-		return false;
+		return true;
 	}
 }
-
