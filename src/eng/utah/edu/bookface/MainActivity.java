@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
 				login = gson.fromJson(jp.parse(result), Students.class);
 
 				if (login.Success) {
-					Intent i = new Intent(this, Feed.class);
+					Intent i = new Intent(this, FeedActivity.class);
 					startActivity(i);
 				} else if (login.Message != null) {
 					Toast.makeText(this, login.Message, Toast.LENGTH_LONG)
