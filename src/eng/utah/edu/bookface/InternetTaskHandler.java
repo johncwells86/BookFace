@@ -19,13 +19,13 @@ public class InternetTaskHandler extends AsyncTask<String, Integer, String> {
 	URL url;
 
 	protected String doInBackground(String... params) {
+		HttpURLConnection conn = null;
 		try {
-			HttpURLConnection conn = null;
+			
 			if (params[1].equals("GET")) {
 				url = new URL(params[0] + "?" + params[2]);
 				conn = (HttpURLConnection) url.openConnection();
 				conn.setRequestProperty("Accept-Charset", "utf-8");
-				conn.setDoOutput(true);
 				conn.setInstanceFollowRedirects(false);
 				conn.setRequestMethod(params[1]);
 			}
@@ -35,6 +35,7 @@ public class InternetTaskHandler extends AsyncTask<String, Integer, String> {
 				conn.setRequestProperty("Accept-Charset", "utf-8");
 				conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
 				conn.setRequestMethod(params[1]);
+				conn.setDoOutput(true);
 				DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 				out.writeBytes(params[2]);
 				out.flush();
@@ -45,8 +46,11 @@ public class InternetTaskHandler extends AsyncTask<String, Integer, String> {
 
 			return s;
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 			return null;
+		}
+		finally{
+			conn.disconnect();
 		}
 
 	}

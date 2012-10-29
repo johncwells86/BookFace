@@ -12,6 +12,7 @@ import com.google.gson.JsonParser;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.view.Menu;
 import android.view.View;
@@ -22,7 +23,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	public GSONTaskHandler gsonHandler = new GSONTaskHandler();
+	public static final String PREFERENCES = "BookFacePrefs";
 	public Button loginButton;
 	public EditText cadeLoginTextbox;
 	public EditText magicNumberTextbox;
@@ -31,6 +32,9 @@ public class MainActivity extends Activity {
 
 	private Gson gson = new Gson();
 	private JsonParser jp = new JsonParser();
+
+//	SharedPreferences prefs = getSharedPreferences(PREFERENCES, 0);
+//	SharedPreferences.Editor editor = prefs.edit();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +85,8 @@ public class MainActivity extends Activity {
 				login = gson.fromJson(jp.parse(result), Students.class);
 
 				if (login.Success) {
+					Variables.setCadeLogin(cade);
+					Variables.setMagicNumber(magic);
 					Intent i = new Intent(this, FeedActivity.class);
 					startActivity(i);
 				} else if (login.Message != null) {

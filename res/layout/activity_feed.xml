@@ -9,15 +9,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
+        android:gravity="right"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView1"
+        <Button
+            android:id="@+id/settings_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Feed"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="Settings" />
 
         <ListView
             android:id="@android:id/list"
@@ -38,11 +37,12 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/settings_button"
+        android:id="@+id/post_create_new"
+        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="Settings" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Create New Post" />
 
 </RelativeLayout>

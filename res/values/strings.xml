@@ -26,5 +26,6 @@
     <string name="url_comments_edit">http://android.eng.utah.edu/Comments/Edit</string>
     <string name="url_comments_create">http://android.eng.utah.edu/Comments/Create</string>
     <string name="url_comments_delete">http://android.eng.utah.edu/Comments/Delete</string>
+    <string name="create_comment_hint">Enter your comment:</string>
 
 </resources>
