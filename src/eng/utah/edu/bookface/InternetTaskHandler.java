@@ -55,22 +55,4 @@ public class InternetTaskHandler extends AsyncTask<String, Integer, String> {
 
 	}
 
-	protected void onProgressUpdate(Integer progress) {
-
-	}
-
-	protected void onPostExecute(String result) {
-		// String s = url.toString();
-		//
-		// if (s.contains("Students")) {
-		// JsonArray arr = jp.parse(result).getAsJsonArray();
-		// Students res = gson.fromJson(arr, Students.class);
-		// } else if (s.contains("Posts")) {
-		// JsonArray arr = jp.parse(result).getAsJsonArray();
-		// Posts res = gson.fromJson(arr, Posts.class);
-		// } else if (s.contains("Comments")) {
-		// JsonArray arr = jp.parse(result).getAsJsonArray();
-		// Comments res = gson.fromJson(arr, Comments.class);
-		// }
-	}
 }

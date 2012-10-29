@@ -33,8 +33,8 @@ public class MainActivity extends Activity {
 	private Gson gson = new Gson();
 	private JsonParser jp = new JsonParser();
 
-//	SharedPreferences prefs = getSharedPreferences(PREFERENCES, 0);
-//	SharedPreferences.Editor editor = prefs.edit();
+	// SharedPreferences prefs = getSharedPreferences(PREFERENCES, 0);
+	// SharedPreferences.Editor editor = prefs.edit();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +50,20 @@ public class MainActivity extends Activity {
 		loginButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-
+				
+				if(rememberPass.isChecked()){
+					Variables.setRememberPass(true);
+				}
+				else{
+					Variables.setRememberPass(false);
+				}
+				if(rememberUserName.isChecked()){
+					Variables.setRememberUser(true);
+				}
+				else{
+					Variables.setRememberUser(false);
+				}
+				
 				if ((cadeLoginTextbox.getText() != null)
 						&& (magicNumberTextbox.getText() != null)) {
 					Login();
@@ -87,6 +100,8 @@ public class MainActivity extends Activity {
 				if (login.Success) {
 					Variables.setCadeLogin(cade);
 					Variables.setMagicNumber(magic);
+					findStudentID(cade); // Store student ID for later use.
+					
 					Intent i = new Intent(this, FeedActivity.class);
 					startActivity(i);
 				} else if (login.Message != null) {
@@ -108,5 +123,31 @@ public class MainActivity extends Activity {
 			return false;
 		}
 		return true;
+	}
+
+	public void findStudentID(String CadeLogin) {
+		Students[] students = null;
+		
+		String url = String.format(getResources()
+				.getString(R.string.url_students_list));
+		InternetTaskHandler it = (InternetTaskHandler) new InternetTaskHandler()
+				.execute(url, "GET", "");
+
+		String result = null;
+		try {
+			result = it.get();
+			students = gson.fromJson(jp.parse(result), Students[].class);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		}
+		if (students != null) {
+			for(Students s : students){
+				if(s.CadeLogin.contains(CadeLogin)){
+					Variables.setStudentID(s.StudentID);
+				}
+			}
+		}
 	}
 }

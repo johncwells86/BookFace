@@ -8,7 +8,7 @@
     <string name="login">Login</string>
     <string name="remember_uname">Remember Username</string>
     <string name="remember_pass">Remember Password</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">BookFace</string>
     <string name="title_activity_feed">Feed</string>
     
     <string name="url_students_login">http://android.eng.utah.edu/Students/Login</string>
