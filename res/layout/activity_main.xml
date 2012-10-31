@@ -11,8 +11,7 @@
         android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="@string/cade_login"
-        android:inputType="text"
-        android:text="jwells" />
+        android:inputType="text" />
 
     <EditText
         android:id="@+id/magic_number_textbox"
@@ -23,8 +22,7 @@
         android:layout_below="@+id/cade_login_textbox"
         android:ems="10"
         android:hint="@string/magic_number"
-        android:inputType="numberPassword|textPassword"
-        android:text="19" />
+        android:inputType="numberPassword|textPassword" />
 
     <Button
         android:id="@+id/login_button"

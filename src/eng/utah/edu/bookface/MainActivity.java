@@ -18,6 +18,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -29,7 +31,9 @@ public class MainActivity extends Activity {
 	public EditText magicNumberTextbox;
 	public CheckBox rememberUserName;
 	public CheckBox rememberPass;
-
+	
+	protected SharedPreferences sp;
+	protected SharedPreferences.Editor editor;
 	private Gson gson = new Gson();
 	private JsonParser jp = new JsonParser();
 
@@ -40,29 +44,29 @@ public class MainActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		sp = this.getSharedPreferences(PREFERENCES, Activity.MODE_PRIVATE);
+		editor = sp.edit();
+		String uName = sp.getString("user", null);
+		String pass= sp.getString("pass", null);
+		
 		loginButton = (Button) findViewById(R.id.login_button);
 		cadeLoginTextbox = (EditText) findViewById(R.id.cade_login_textbox);
 		magicNumberTextbox = (EditText) findViewById(R.id.magic_number_textbox);
 		rememberUserName = (CheckBox) findViewById(R.id.remember_username);
 		rememberPass = (CheckBox) findViewById(R.id.remember_pw);
-
+		
+		if(uName != null){
+		cadeLoginTextbox.setText(uName);
+		rememberUserName.setChecked(true);
+		}
+		if(pass != null){
+		magicNumberTextbox.setText(pass);
+		rememberPass.setChecked(true);
+		}
 		loginButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				
-				if(rememberPass.isChecked()){
-					Variables.setRememberPass(true);
-				}
-				else{
-					Variables.setRememberPass(false);
-				}
-				if(rememberUserName.isChecked()){
-					Variables.setRememberUser(true);
-				}
-				else{
-					Variables.setRememberUser(false);
-				}
+
 				
 				if ((cadeLoginTextbox.getText() != null)
 						&& (magicNumberTextbox.getText() != null)) {
@@ -71,6 +75,29 @@ public class MainActivity extends Activity {
 			}
 		});
 	}
+
+	@Override
+	public void onPause(){
+		super.onPause();
+		if(rememberPass.isChecked()){
+			Variables.setRememberPass(true);
+			editor.putString("pass", magicNumberTextbox.getText().toString());
+		}
+		else{
+			Variables.setRememberPass(false);
+			editor.remove("pass");
+		}
+		if(rememberUserName.isChecked()){
+			Variables.setRememberUser(true);
+			editor.putString("user", cadeLoginTextbox.getText().toString());
+		}
+		else{
+			Variables.setRememberUser(false);
+			editor.remove("user");
+		}
+		editor.apply();
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -146,6 +173,9 @@ public class MainActivity extends Activity {
 			for(Students s : students){
 				if(s.CadeLogin.contains(CadeLogin)){
 					Variables.setStudentID(s.StudentID);
+					String[] n = s.Name.split(" ");
+					if(n.length > 1)
+					Variables.setFullName(n[0], n[1]);
 				}
 			}
 		}
